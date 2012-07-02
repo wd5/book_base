@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Вход на сайт{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="span7">
+			<h1>Вход на сайт</h1>
+
+			{% include "includes/signin_form.html" %}
+		</div>
+
+		<div class="span5" style="margin-top: 50px;">
+			Для входа на сайт укажите почту и пароль.<br /><br />
+			Если вы забыли пароль, можете воспользоваться формой для
+			<a href="{% url profile_restore %}">востсановления пароля</a>.
+		</div>
+	</div>
+{% endblock %}

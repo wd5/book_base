@@ -1,0 +1,54 @@
+<!doctype html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<meta name="keywords" content="{% block keywords %}{% endblock %}">
+		<meta name="description" content="{% block description %}{% endblock %}">
+
+		<title>Книгобаза &mdash; {% block title %}{% endblock %}</title>
+
+		<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+		{% block preload_css %}
+		{% endblock %}
+
+		{# Переменные для работы скриптов. #}
+		<script type="text/javascript">
+			var csrfTocken = '{{ csrf_token }}';
+
+
+		</script>
+
+		<script src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
+		<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+		{% block preload_js %}
+		{% endblock %}
+	</head>
+
+	<body>
+		{% if not request.user.is_authenticated %}
+			{% include "includes/signin_popup.html" %}
+		{% endif %}
+		{% include "includes/top_menu.html" %}
+
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					{% block breadcrumbs %}
+					{% endblock %}
+				</div>
+			</div>
+
+			{% block content %}
+			{% endblock %}
+			<div class="hFooter"></div>
+		</div>
+
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					{% include "includes/footer.html" %}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

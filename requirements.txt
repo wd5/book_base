@@ -1,0 +1,9 @@
+PIL
+django
+#django-grappelli
+django-filebrowser==3.4.2
+sorl-thumbnail==11.12
+django-annoying==0.7.6
+pytils==0.2.3
+django-ulogin
+django-simple-captcha

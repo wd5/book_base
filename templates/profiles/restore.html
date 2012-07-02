@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Восстановление пароля{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="span7 content">
+			<h1>Восстановление пароля</h1>
+
+			<form class="form-horizontal" action="{% url profile_restore %}" method="POST">
+				<hr />
+				{{ form.email.errors }}
+				{{ form.captcha.errors }}
+				{% csrf_token %}
+				<fieldset>
+					<div class="control-group {% if form.email.errors %}error{% endif %}">
+						<label class="control-label" for="id_email">Почта</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" value="{{ form.email.value|default:"" }}" name="email" id="id_email">
+						</div>
+					</div>
+					<div class="control-group {% if form.captcha.errors %}error{% endif %}">
+						<label class="control-label" for="id_captcha_1">Капча</label>
+						<div class="controls">
+							{{ form.captcha }}
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<button class="btn btn-primary" type="submit">Восстановить</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+
+		<div class="span5" style="margin-top: 50px;">
+			Для восстановление пароля введите почту, которая была указана при регистрации и введите символы с картинки.
+		</div>
+	</div>
+{% endblock %}

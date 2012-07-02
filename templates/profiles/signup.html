@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Восстановление пароля{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="span7">
+			<h1>Восстановление пароля</h1>
+			<hr>
+			{{ form.email.errors }}
+			{{ form.name.errors }}
+			{{ form.captcha.errors }}
+			<form class="form-horizontal" action="{% url profile_signup %}" method="POST">
+				{% csrf_token %}
+				<fieldset>
+					<div class="control-group {% if form.email.errors %}error{% endif %}">
+						<label class="control-label" for="id_email">Почта</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" value="{{ form.email.value|default:"" }}" name="email" id="id_email">
+						</div>
+					</div>
+					<div class="control-group {% if form.name.errors %}error{% endif %}">
+						<label class="control-label" for="id_name">Имя на сайте</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" value="{{ form.name.value|default:"" }}" name="name" id="id_name">
+						</div>
+					</div>
+					<div class="control-group {% if form.captcha.errors %}error{% endif %}">
+						<label class="control-label" for="id_captcha_1">Капча</label>
+						<div class="controls">
+							{{ form.captcha }}
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<button class="btn btn-primary" type="submit">Регистрация</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+
+		<div class="span5" style="margin-top: 50px;">
+			Для регистрации на сайте необходимо указать существующую почту и имя, отображаемое на сайте.<br /><br />
+			Если вы забыли пароль, можете воспользоваться формой для
+			<a href="{% url profile_restore %}">востсановления пароля</a>.
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load ulogin_tags %}
+
+<form class="form-horizontal" action="{% url profile_signin %}" method="POST" id="sibin_form">
+	{% csrf_token %}
+	<fieldset>
+		<div class="control-group">
+			{% ulogin_widget %}
+		</div>
+		<hr />
+		{{ form.username.errors }}
+		{{ form.password.errors }}
+		<div class="control-group">
+			<div class="control-group clearfix {% if form.username.errors %}error{% endif %}">
+				<label for="username">Введите почту</label>
+				<input type="text" name="username" id="username" value="{{ form.username.value|default:"" }}" placeholder="E-mail">
+			</div>
+			<div class="control-group clearfix {% if form.password.errors %}error{% endif %}">
+				<label for="password">Введите пароль</label>
+				<input type="password" name="password" id="password" placeholder="Пароль">
+			</div>
+			<div class="controls enter">
+				<input type="submit" class="btn btn-primary" value="Войти">
+			</div>
+		</div>
+	</fieldset>
+</form>
