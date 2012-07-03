@@ -6,6 +6,8 @@
 
 		<title>Книгобаза &mdash; {% block title %}{% endblock %}</title>
 
+		{% block postload_css %}
+		{% endblock %}
 		<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
 		{% block preload_css %}
@@ -14,10 +16,10 @@
 		{# Переменные для работы скриптов. #}
 		<script type="text/javascript">
 			var csrfTocken = '{{ csrf_token }}';
-
-
 		</script>
 
+		{% block postload_js %}
+		{% endblock %}
 		<script src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
 		<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
 		{% block preload_js %}
@@ -31,6 +33,10 @@
 		{% include "includes/top_menu.html" %}
 
 		<div class="container">
+			<div class="row">
+				{% block breadcrumb %}
+				{% endblock %}
+			</div>
 			<div class="row">
 				<div class="span12">
 					{% block breadcrumbs %}
