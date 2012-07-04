@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.contrib.auth.models import User
 
 class Author(models.Model):
     """
@@ -150,3 +151,13 @@ class BookParserJSON(models.Model):
         ordering = ['created', ]
         verbose_name = 'Импорт'
         verbose_name_plural = 'Импорт из JSON'
+
+class BookRead(models.Model):
+    book = models.ForeignKey(Book, verbose_name='Книга')
+    user = models.ForeignKey(User, verbose_name='Пользователь')
+    added = models.DateTimeField('Добавлена', auto_now_add=True)
+
+    class Meta:
+        ordering = ['added', ]
+        verbose_name = 'Буду читать'
+        verbose_name_plural = 'Буду читать'
