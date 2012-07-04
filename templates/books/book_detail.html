@@ -30,13 +30,15 @@
 					</a>
 				</li>
 			</ul>
-			{% with book_id=book.pk %}
-				{%  if is_read %}
-					{% include "books/includes/unread.html" %}
-				{% else %}
-					{% include "books/includes/will_read.html" %}
-				{% endif %}
-			{% endwith %}
+			<div class="read-book">
+				{% with book_id=book.pk %}
+					{%  if is_read %}
+						{% include "books/includes/unread.html" %}
+					{% else %}
+						{% include "books/includes/will_read.html" %}
+					{% endif %}
+				{% endwith %}
+			</div>
 		</div>
 		<div class="span9 book-desc">
 			<h4>{{ book.name }}</h4>
