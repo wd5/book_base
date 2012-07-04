@@ -2,6 +2,42 @@
 
 {% block title %}Главная{% endblock %}
 
-{% block content %}
+{% block postload_css %}
+	<style type="text/css">
+		.book-list li {
+			margin-top: 5px;
+		}
+		.read-book {
+			display: inline;
+		}
+	</style>
+{% endblock %}
 
+{% block content %}
+	<div class="row">
+		<div class="span12">
+			<ul class="book-list" style="list-style: none;">
+				<li>
+					<h3>10 последних книг</h3>
+				</li>
+				{% for book in latest_book %}
+					<li>
+						<a href="{% url book_detail book.pk %}">
+							{{ book.name }}
+						</a>
+						{% with book_id=book.pk %}
+							{% include "books/includes/read_button.html" %}
+						{% endwith %}
+					</li>
+				{% endfor %}
+				<li style="margin: 20px 30px;">
+					<h3>
+						<a href="{% url book_list %}">
+							Все книги
+						</a>
+					</h3>
+				</li>
+			</ul>
+		</div>
+	</div>
 {% endblock %}
