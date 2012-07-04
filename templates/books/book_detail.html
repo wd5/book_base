@@ -31,7 +31,11 @@
 				</li>
 			</ul>
 			{% with book_id=book.pk %}
-				{% include "books/includes/will_read.html" %}
+				{%  if is_read %}
+					{% include "books/includes/unread.html" %}
+				{% else %}
+					{% include "books/includes/will_read.html" %}
+				{% endif %}
 			{% endwith %}
 		</div>
 		<div class="span9 book-desc">
