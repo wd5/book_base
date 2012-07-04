@@ -2,6 +2,25 @@
 
 {% block title %}Буду читать{% endblock %}
 
+{% block breadcrumb %}
+	<ul class="breadcrumb">
+		<li>
+			<a href="{% url main_page %}">Главная</a>
+			<span class="divider">/</span>
+		</li>
+		<li>
+			<a href="{% url book_list %}">Каталог книг</a>
+			<span class="divider">/</span>
+		</li>
+		<li class="active">
+			<h1>
+				Буду читать
+			</h1>
+		</li>
+	</ul>
+{% endblock %}
+
+
 {% block content %}
 	<div class="row">
 		<div class="span12">
