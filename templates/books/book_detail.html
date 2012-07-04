@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.name }}{% endblock %}
+
+{% block breadcrumb %}
+	<ul class="breadcrumb">
+		<li>
+			<a href="{% url main_page %}">Главная</a>
+			<span class="divider">/</span>
+		</li>
+		<li>
+			<a href="{% url book_list %}">Каталог книг</a>
+			<span class="divider">/</span>
+		</li>
+		<li class="active">
+			<h1>
+				{{ book.name }}
+			</h1>
+		</li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<style type="text/css">
+		.book-desc h4 {
+			margin-bottom: 20px;
+		}
+		.book-detail {
+			width: 100%;
+		}
+	</style>
+	<div class="row">
+		<div class="span3">
+			<ul class="thumbnails">
+				<li class="span3">
+					<a class="thumbnail" href="#" onclick="return false;">
+						<img alt="" src="http://placehold.it/260x180">
+					</a>
+				</li>
+			</ul>
+			{% with book_id=book.pk %}
+				{% include "books/includes/will_read.html" %}
+			{% endwith %}
+		</div>
+		<div class="span9 book-desc">
+			<h4>{{ book.name }}</h4>
+			<table cellspacing="0" cellpadding="0" class="book-detail">
+				<tbody>
+					<tr>
+						<th>
+							Инвентарный номер
+						</th>
+						<td>
+							{{ book.inventory }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Том
+						</th>
+						<td>
+							{{ book.volume }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Автор
+						</th>
+						<td>
+							{{ book.author }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							ISBN
+						</th>
+						<td>
+							{{ book.isbn }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							ISBN-10
+						</th>
+						<td>
+							{{ book.isbn10 }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							BBK1
+						</th>
+						<td>
+							{{ book.bbk1 }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							BBK2
+						</th>
+						<td>
+							{{ book.bbk2 }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Жанр
+						</th>
+						<td>
+							{{ book.genre }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Серия
+						</th>
+						<td>
+							{{ book.series }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Издатель
+						</th>
+						<td>
+							{{ book.publisher }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Город
+						</th>
+						<td>
+							{{ book.city }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Год издания
+						</th>
+						<td>
+							{{ book.year }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Страниц
+						</th>
+						<td>
+							{{ book.pages }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Язык
+						</th>
+						<td>
+							{{ book.lang }}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Формат
+						</th>
+						<td>
+							{{ book.format }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
