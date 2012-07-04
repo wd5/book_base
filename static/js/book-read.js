@@ -16,10 +16,9 @@ function sendBookReadData(url, data, parent){
 $(function() {
 	$('.will-read-btn').live("click", function(event){
 		var button = $(this);
-		var parent = $(this).parent('.read-book');
+		var parent = button.parents('.read-book');
 		var postData = _getBookPostData(button);
 		var readUrl = bookUrl + postData.book_id + '/will-read/';
-		console.log(parent);
 		sendBookReadData(readUrl, postData, parent);
 
 		return false;
@@ -27,11 +26,25 @@ $(function() {
 
 	$('.unread-btn').live("click", function(event){
 		var button = $(this);
-		var parent = $(this).parent('.read-book');
+		var parent = $(this).parents('.read-book');
 		var postData = _getBookPostData(button);
 		var readUrl = bookUrl + postData.book_id + '/unread/';
 
 		sendBookReadData(readUrl, postData, parent);
+
+		return false;
+	});
+
+	$('.book-unread').live("click", function(event){
+		var button = $(this);
+		var parent = $(this).parents('.book-row');
+		var postData = _getBookPostData(button);
+		var unReadUrl = bookUrl + postData.book_id + '/unread/';
+
+		$.post(unReadUrl, postData, function(data) {
+			console.debug('response data ', data);
+			parent.remove();
+		});
 
 		return false;
 	});
