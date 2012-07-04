@@ -16,13 +16,14 @@
 		{# Переменные для работы скриптов. #}
 		<script type="text/javascript">
 			var csrfTocken = '{{ csrf_token }}';
+			var bookUrl = '{% url book_list %}'
 		</script>
 
 		{% block postload_js %}
 		{% endblock %}
 		<script src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
 		<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-		<script src="{{ STATIC_URL }}js/book.js"></script>
+		<script src="{{ STATIC_URL }}js/book-read.js"></script>
 		{% block preload_js %}
 		{% endblock %}
 	</head>
