@@ -1246,3 +1246,10 @@ ul.breadcrumb {
 .row .filter h2 {
 	margin-top: 0;
 }
+
+.book-desc h4 {
+	margin-bottom: 20px;
+}
+.book-detail {
+	width: 100%;
+}
