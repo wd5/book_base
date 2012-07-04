@@ -10,9 +10,9 @@ from .models import Library, LibraryCity
 from .models import Author, Publisher, Genre, Language, Format, Series
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('name', 'inventory', 'library', 'author', 'genre', 'year', 'pages', 'lang', 'price', 'format', 'image_preview', )
+    list_display = ('name', 'author', 'library', 'inventory', 'genre', 'year', 'image_preview', )
     list_editable = ('library', )
-    list_filter = ('genre', 'author', 'series', 'publisher', 'city', )
+    list_filter = ('genre', 'author', 'series', 'publisher', )
     search_fields = ('name', 'inventory', 'author', )
 
     def image_preview(self, obj):
@@ -23,6 +23,12 @@ class BookAdmin(admin.ModelAdmin):
     image_preview.short_description = 'Изображение'
     image_preview.allow_tags = True
     image_preview.admin_order_field = 'image'
+
+    def get_name(self, obj):
+        return obj.name[:57]
+    get_name.short_description = 'Название'
+    get_name.allow_tags = True
+    get_name.admin_order_field = 'name'
 
 class BookParserJSONAdmin(admin.ModelAdmin):
     list_display = ('file', 'created', 'book_count', )
@@ -80,8 +86,8 @@ class BookParserJSONAdmin(admin.ModelAdmin):
             except :
                 continue
 
-            if i > 10:
-                break2
+            if i > 50:
+                break
             i += 1
 
         obj.book_count = i
