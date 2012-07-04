@@ -1,0 +1,22 @@
+<div class="row book-row">
+	<div class="span1">
+		<ul class="thumbnails">
+			<li class="span1">
+				<div class="thumbnail">
+					<img src="http://placehold.it/60x90" alt="Книга {{ book.name }}">
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="span8">
+		<a class="book-name" href="{% url book_detail book.pk %}">
+			{{ book.name }}
+		</a>&nbsp;
+		<span class="book-year">({{ book.year }} г.)</span>
+
+		<div class="book-author">{{ book.author }}</div>
+		<div class="book-genre">{{ book.genre }}</div>
+
+		{% block close_button %}{% endblock %}
+	</div>
+</div>
