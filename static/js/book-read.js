@@ -6,30 +6,32 @@ function _getBookPostData(book) {
 	};
 }
 
-function sendBookReadData(url, data){
+function sendBookReadData(url, data, parent){
 	$.post(url, data, function(data) {
 		console.debug('response data ', data);
-		$('.read-book').html(data);
+		parent.html(data);
 	});
 }
 
 $(function() {
 	$('.will-read-btn').live("click", function(event){
 		var button = $(this);
+		var parent = $(this).parent('.read-book');
 		var postData = _getBookPostData(button);
 		var readUrl = bookUrl + postData.book_id + '/will-read/';
-
-		sendBookReadData(readUrl, postData);
+		console.log(parent);
+		sendBookReadData(readUrl, postData, parent);
 
 		return false;
 	});
 
 	$('.unread-btn').live("click", function(event){
 		var button = $(this);
+		var parent = $(this).parent('.read-book');
 		var postData = _getBookPostData(button);
 		var readUrl = bookUrl + postData.book_id + '/unread/';
 
-		sendBookReadData(readUrl, postData);
+		sendBookReadData(readUrl, postData, parent);
 
 		return false;
 	});
