@@ -2,7 +2,7 @@
 
 from .models import Genre
 
-def get_genries(request):
+def last_read(request):
     return {
-        'genries': Genre.objects.all(),
+        'last_look_book': request.session.get('last_look_book', []),
     }

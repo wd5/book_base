@@ -86,7 +86,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
-    'apps.books.context_processors.get_genries',
 )
 
 ROOT_URLCONF = 'book_base.urls'
