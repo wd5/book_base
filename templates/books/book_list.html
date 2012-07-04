@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Книги{% endblock %}
+
+{% block breadcrumb %}
+	<ul class="breadcrumb">
+		<li>
+			<a href="{% url main_page %}">Главная</a>
+			<span class="divider">/</span>
+		</li>
+		<li class="active">
+			<h1>
+				Каталог книг
+			</h1>
+		</li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="filter span3">
+			&nbsp;
+		</div>
+		<div class="span9">
+			{% for book in books %}
+				{% include "books/includes/book_on_row.html" %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
