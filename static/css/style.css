@@ -1221,3 +1221,28 @@ h1 {
 	margin-bottom: 10px;
 	list-style-type: square;
 }
+
+.breadcrumb .active h1 {
+	font-size: 13px;
+	height: 18px;
+	margin: 0;
+}
+ul.breadcrumb {
+	padding-top: 0;
+}
+.book-row {
+	border-bottom: 1px solid black;
+	margin-bottom: 20px;
+}
+.book-name {
+	font-size: 11pt;
+	font-weight: bolder;
+	text-decoration: underline;
+}
+.book-year {
+	font-size: 10px;
+	white-space: nowrap;
+}
+.row .filter h2 {
+	margin-top: 0;
+}
