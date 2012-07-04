@@ -34,11 +34,8 @@ class WillReadNode(template.Node):
         will_not_read = False # Не буду читать
 
         if request.user.is_authenticated():
-            book=get_object_or_None(BookRead,
-                user=request.user,
-                book__id=book
-            )
-            if book: will_not_read = True
+            book=get_object_or_None(BookRead, user=request.user, book=book)
+            if book: will_not_read=True
         else:
             will_not_read = book.id in request.session.get('read_ids', {})
 
