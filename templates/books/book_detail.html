@@ -30,11 +30,10 @@
 					</a>
 				</li>
 			</ul>
-			<div class="read-book">
-				{% with book_id=book.pk %}
-					{% include "books/includes/read_button.html" %}
-				{% endwith %}
-			</div>
+
+			{% with book_id=book.pk %}
+				{% include "books/includes/read_button.html" %}
+			{% endwith %}
 		</div>
 		<div class="span9 book-desc">
 			<h4>{{ book.name }}</h4>
