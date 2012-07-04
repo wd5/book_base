@@ -1225,6 +1225,9 @@ ul.breadcrumb {
 	border-bottom: 1px solid black;
 	margin-bottom: 20px;
 }
+.book-row:last-child {
+	border: 0;
+}
 .book-name {
 	font-size: 11pt;
 	font-weight: bolder;
