@@ -21,27 +21,6 @@ class BookDetail(DetailView):
     model = Book
     context_object_name = 'book'
 
-    def get_context_data(self, **kwargs):
-        book_id=self.kwargs.get('pk')
-        book = get_object_or_404(Book, pk=book_id)
-
-        is_read = False
-        if self.request.user.is_authenticated():
-            # TODO: переписать с использоватнием get_or_none
-            try:
-                BookRead.objects.get(user=self.request.user, book=book)
-                is_read=True
-            except BookRead.DoesNotExist:
-                pass
-        else:
-            book_reaad=self.request.session.get('book_reaad', {})
-            if book_id in book_reaad:
-                is_read=True
-
-        context=super(BookDetail, self).get_context_data(**kwargs)
-        context['is_read']=is_read
-        return context
-
 class WillRead(View):
     http_method_names = ('post', )
 
@@ -52,9 +31,10 @@ class WillRead(View):
         if request.user.is_authenticated():
             BookRead.objects.get_or_create(user=request.user, book=book)
         else:
-            book_reaad = request.session.get('book_reaad', {})
-            book_reaad[book_id]=True
-            request.session['book_reaad']=book_reaad
+            read_ids = request.session.get('read_ids', {})
+            book_id=int(book_id)
+            read_ids[book_id]=True
+            request.session['read_ids']=read_ids
             request.session.save()
 
         return render_to_response('books/includes/unread.html', {
@@ -75,16 +55,31 @@ class UnRead(View):
             except BookRead.DoesNotExist:
                 raise Http404
         else:
-            book_reaad = request.session.get('book_reaad', {})
-            del book_reaad[book_id]
-            request.session['book_reaad']=book_reaad
+            read_ids = request.session.get('read_ids', {})
+            book_id=int(book_id)
+            del read_ids[book_id]
+            request.session['read_ids']=read_ids
             request.session.save()
 
         return render_to_response('books/includes/will_read.html', {
             'book_id': book_id,
         }, context_instance=RequestContext(self.request))
 
+class WillReadList(ListView):
+    model = Book
+    context_object_name = 'books'
+    template_name = "books/user_read_list.html"
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated():
+            read_ids=BookRead.objects.filter(user=self.request.user).values('book__id')
+        else:
+            read_ids=self.request.session.get('read_ids', [])
+        books = Book.objects.filter(id__in=read_ids)
+        return books
+
 class PrintOrder(View):
     """
     Распечатать формуляр.
     """
+    pass
