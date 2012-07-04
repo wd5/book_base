@@ -1247,3 +1247,7 @@ ul.breadcrumb {
 .book-detail {
 	width: 100%;
 }
+.social-pannel li {
+	height: 30px;
+	margin-top: 4px;
+}

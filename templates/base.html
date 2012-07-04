@@ -21,6 +21,22 @@
 
 		{% block postload_js %}
 		{% endblock %}
+		<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+
+		<script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript" charset="windows-1251"></script>
+		<script type="text/javascript">
+			VK.init({apiId: 3023410, onlyWidgets: true});
+		</script>
+
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=289443477812093";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+
 		<script src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
 		<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
 		<script src="{{ STATIC_URL }}js/book-read.js"></script>
