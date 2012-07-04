@@ -32,11 +32,7 @@
 			</ul>
 			<div class="read-book">
 				{% with book_id=book.pk %}
-					{%  if is_read %}
-						{% include "books/includes/unread.html" %}
-					{% else %}
-						{% include "books/includes/will_read.html" %}
-					{% endif %}
+					{% include "books/includes/read_button.html" %}
 				{% endwith %}
 			</div>
 		</div>
