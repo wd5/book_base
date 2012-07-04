@@ -468,21 +468,12 @@ body ul {
 .user-comments {
     margin-top: 40px;
 }
-.booksmark-delete {
-    position:absolute;
-    right: 0px;
-    top: 0px;
-    display:none;
-}
-.span9:hover .booksmark-delete {
-    display: block;
-}
 
 .author-delete {
     position:absolute;
     right: 0px;
     top: 0px;
-    display:none;
+    /*display:none;*/
 }
 .span3:hover .author-delete {
     display: block;
