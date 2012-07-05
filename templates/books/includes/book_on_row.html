@@ -20,7 +20,22 @@
 	{% if can_delete %}
 		<div class="span3">
 			{# Удалить из "закладок" #}
-			<button class="close book-unread" data-book-id="{{ book.pk }}">×</button>
+			<button class="close book-unread-than-remove" data-book-id="{{ book.pk }}">×</button>
+		</div>
+	{% endif %}
+	{% if can_take %}
+		<div class="print-order-block">
+			{% if request.user.is_authenticated %}
+				<a class="btn" href="#" class="tacke-order">
+					<i class="icon-print"></i>
+					Получить формуляр
+				</a>
+			{% else %}
+				<a class="btn" data-toggle="modal" href="#signInPopup">
+					<i class="icon-print"></i>
+					Получить формуляр
+				</a>
+			{% endif %}
 		</div>
 	{% endif %}
 </div>
