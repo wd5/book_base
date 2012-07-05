@@ -35,7 +35,7 @@ $(function() {
 		return false;
 	});
 
-	$('.book-unread').live("click", function(event){
+	$('.book-unread-than-remove').live("click", function(event){
 		var button = $(this);
 		var parent = $(this).parents('.book-row');
 		var postData = _getBookPostData(button);
