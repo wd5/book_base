@@ -17,12 +17,20 @@
 
 {% block content %}
 	<div class="row">
+		<div class="span8 offset1">
+			<form method="POST" action="{% url book_search %}">
+				<input type="text" class="span9" name="text" placeholder="Найти книгу" id="main_search_input" />
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
 		<div class="span9">
 			<ul class="book-list" style="list-style: none;">
 				<li>
-					<h3>10 последних книг</h3>
+					<h3>10 последние просмотров:</h3>
 				</li>
-				{% for book in latest_book %}
+				{% for book in last_look_book %}
 					<li>
 						<a href="{% url book_detail book.pk %}">
 							{{ book.name }}

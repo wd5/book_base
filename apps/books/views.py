@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.conf import settings
 from django.http import Http404
 from django.views.generic.base import View
 from django.views.generic.list import ListView
@@ -8,6 +9,8 @@ from django.template.context import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 
 from .models import Book, BookRead
+
+LAST_LOOK_BOOK_COUNT = getattr(settings, 'LAST_LOOK_BOOK_COUNT', 10)
 
 class BookList(ListView):
     model = Book
@@ -20,6 +23,23 @@ class BookSearch(BookList):
 class BookDetail(DetailView):
     model = Book
     context_object_name = 'book'
+
+    def get_object(self, queryset=None):
+        obj=super(BookDetail, self).get_object(queryset=queryset)
+
+        last_look_book=self.request.session.get('last_look_book', [])
+        if len(last_look_book) >= LAST_LOOK_BOOK_COUNT:
+            last_look_book.pop()
+        try:
+            last_look_book.remove(obj)
+        except ValueError:
+            pass
+        last_look_book.insert(0, obj)
+
+        self.request.session['last_look_book']=last_look_book
+        self.request.session.save()
+
+        return obj
 
 class WillRead(View):
     http_method_names = ('post', )
