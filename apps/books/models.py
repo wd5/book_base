@@ -161,3 +161,17 @@ class BookRead(models.Model):
         ordering = ['added', ]
         verbose_name = 'Буду читать'
         verbose_name_plural = 'Буду читать'
+
+class OrderBook(models.Model):
+    book = models.ForeignKey(Book, verbose_name='Книга')
+    user = models.ForeignKey(User, verbose_name='Пользователь')
+    library = models.ForeignKey(Library, verbose_name='Библиотека')
+    queue_num = models.PositiveSmallIntegerField('Очередь', default=1)
+    is_taked = models.BooleanField('Взял книгу', default=False)
+    added = models.DateTimeField('Оформлен', auto_now_add=True)
+
+    class Meta:
+        ordering = ['added', ]
+        unique_together = ('book', 'user', 'library', )
+        verbose_name = 'Буду читать'
+        verbose_name_plural = 'Буду читать'

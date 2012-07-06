@@ -110,6 +110,7 @@ INSTALLED_APPS = (
 
     'django_ulogin',
     'captcha',
+    'annoying',
 
     'apps.books',
     'apps.flatpages',

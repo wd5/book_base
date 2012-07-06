@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.utils.decorators import method_decorator
 from django.views.generic.base import View
+from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.template.context import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
+from annoying.functions import get_object_or_None
 
-from .models import Book, BookRead
+from .forms import MakeOrderForm
+from .models import Book, BookRead, Library, OrderBook
 
 LAST_LOOK_BOOK_COUNT = getattr(settings, 'LAST_LOOK_BOOK_COUNT', 10)
 
@@ -103,3 +108,50 @@ class PrintOrder(View):
     Распечатать формуляр.
     """
     pass
+
+class RenderOrderBookForm(View):
+    """
+    Вывод формы для заказа книги
+    """
+    def post(self, request, *args, **kwargs):
+        return render_to_response('books/order_form.html', {
+            'libraries': Library.objects.all(),
+            'book': get_object_or_404(Book, pk=request.POST.get('book_id')),
+        }, context_instance=RequestContext(self.request))
+
+class MakeOrderBook(FormView):
+    """
+    Заказать книгу
+    """
+    template_name = 'books/order_queue.html'
+    form_class = MakeOrderForm
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MakeOrderBook, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        exist_order=get_object_or_None(OrderBook,
+            user=self.request.user,
+            book=get_object_or_404(Book, pk=self.request.POST.get('book')),
+            library=get_object_or_404(Library, pk=self.request.POST.get('library')),
+        )
+        if exist_order:
+            raise Http404
+
+        order = form.save(commit=False)
+        order.user = self.request.user
+        order.queue_num = OrderBook.objects.filter(book=order.book).count() + 1
+        order.save()
+
+        return render_to_response('books/order_queue.html', {
+            'queue_num': order.queue_num,
+        }, context_instance=RequestContext(self.request))
+
+
+class CancelOrderBook(View):
+    """
+    Отменить заказ книги
+    """
+    def post(self, request, *args, **kwargs):
+        pass

@@ -16,10 +16,12 @@
 		{# Переменные для работы скриптов. #}
 		<script type="text/javascript">
 			var csrfTocken = '{{ csrf_token }}';
-			var bookUrl = '{% url book_list %}'
+			var bookUrl = '{% url book_list %}';
+			var orderBookRenderFormUrl = '{% url order_book_render_form %}';
+			var orderBookMakeUrl = '{% url order_book_make %}';
 		</script>
 
-		{% block postload_js %}
+		{% block preload_js %}
 		{% endblock %}
 		<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
 
@@ -40,7 +42,7 @@
 		<script src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
 		<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
 		<script src="{{ STATIC_URL }}js/book-read.js"></script>
-		{% block preload_js %}
+		{% block postload_js%}
 		{% endblock %}
 	</head>
 

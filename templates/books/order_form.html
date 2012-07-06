@@ -1,0 +1,11 @@
+<form class="order-book-form">
+	{%  csrf_token %}
+	<input type="hidden" name="book" value="{{ book.pk }}">
+	<label for="library_id">Выберете библиотеку для доставки:</label>
+	<select name="library" id="library_id">
+		{% for lib in libraries %}
+			<option value="{{ lib.pk }}">{{ lib }}</option>
+		{% endfor %}
+	</select>
+	<a href="#" data-book-id="{{ book.pk }}" class="btn btn-primary order-book-make" >Взять!</a>
+</form>
