@@ -1,5 +1,1 @@
-{% ifequal queue_num 1 %}
-	Вы взяли эту книгу (вы первый)
-{% else %}
-	Ваша очередь {{ queue_num }}
-{% endifequal %}
+Формуляр для получения книги отправлен на почту <strong>{{ request.user.email }}</strong>

@@ -42,18 +42,20 @@
 				{% include "books/includes/read_button.html" %}
 			{% endwith %}
 
-			{% is_take request book as order %}
-			{% if request.user.is_authenticated and not order %}
-				<div class="order-book-form-container">
-					<a href="#" data-book-id="{{ book.pk }}" class="btn btn-info order-book-form-render">
-						Взять книгу
-					</a>
-				</div>
-			{% else %}
-				{{ order.added }}
-			{% endif %}
-
 			{% include "includes/social.html" %}
+
+			<div class="order-book-form-container">
+				{% if request.user.is_authenticated %}
+					{% is_take request book as order_book %}
+					{% if not order_book %}
+						<a href="#" data-book-id="{{ book.pk }}" class="btn btn-info order-book-form-render">
+							Взять книгу
+						</a>
+					{% endif %}
+				{% else %}
+
+				{% endif %}
+			</div>
 		</div>
 		<div class="span9 book-desc">
 			<h4>{{ book.name }}</h4>

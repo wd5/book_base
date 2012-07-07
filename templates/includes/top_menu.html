@@ -14,8 +14,8 @@
 				</li>
 				<li>
 					<a href="{% url book_will_read_list %}">
-						<i class="icon-bookmark"></i>
-						Буду читать
+						<i class="icon-star"></i>
+						Закладки
 					</a>
 				</li>
 				{% ifnotequal main_page_url request.path %}
@@ -35,12 +35,6 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="#">
-									<i class="icon-print"></i>
-									Напечатать формуляр
-								</a>
-							</li>
-							<li style="border-top: 1px solid gray;">
 								<a href="{% url profile_signout %}">
 									<i class="icon-off"></i>
 									Выйти
