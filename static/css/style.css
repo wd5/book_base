@@ -1260,3 +1260,24 @@ ul.breadcrumb {
 	font-size: 14pt;
 	text-align: center;
 }
+
+.order-book-form-render {
+	margin-top: 10px;
+}
+
+.order-book-form-container {
+	margin-top: 30px;
+}
+
+label[for=library_id] {
+	font-size: 8pt;
+}
+
+.order-book-form select {
+	height: 26px;
+	border-radius: 5px;
+}
+
+.order-book-form select {
+	font-size: 8pt;
+}
