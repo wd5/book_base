@@ -131,6 +131,7 @@ class Book(models.Model):
     image = models.ImageField('Превьюшка', upload_to='books_image', blank=True, null=True)
 
     library = models.ForeignKey(Library, verbose_name='Библиотека')
+    taked = models.BooleanField('Книга у читателя', default=False)
 
     update = models.DateTimeField('Обновлена', auto_now=True)
     created = models.DateTimeField('Создана', auto_now_add=True)
