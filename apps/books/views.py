@@ -123,7 +123,7 @@ class MakeOrderBook(FormView):
     """
     Заказать книгу
     """
-    template_name = 'books/order_queue.html'
+    template_name = 'books/includes/order_queue.html'
     form_class = MakeOrderForm
 
     @method_decorator(login_required)
@@ -144,7 +144,7 @@ class MakeOrderBook(FormView):
         order.queue_num = OrderBook.objects.filter(book=order.book).count() + 1
         order.save()
 
-        return render_to_response('books/order_queue.html', {
+        return render_to_response('books/includes/order_queue.html', {
             'queue_num': order.queue_num,
         }, context_instance=RequestContext(self.request))
 
