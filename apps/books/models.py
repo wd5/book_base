@@ -168,10 +168,11 @@ class OrderBook(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь')
     library = models.ForeignKey(Library, verbose_name='Библиотека')
     phone = models.CharField('Телефон', max_length=16)
+    complite = models.BooleanField('Обраотана', default=False)
     added = models.DateTimeField('Оформлен', auto_now_add=True)
 
     class Meta:
-        ordering = ['added', ]
+        ordering = ['-complite', 'added', ]
         unique_together = ('book', 'user', )
         verbose_name = 'Закза'
         verbose_name_plural = 'Закзаы книг'
