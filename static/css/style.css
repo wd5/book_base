@@ -1285,3 +1285,8 @@ label[for=library_id] {
 .order-book-cancel {
 	margin-top: 10px;
 }
+
+.bookmark-control-btn
+{
+	float: right; margin-top: 3px;
+}
