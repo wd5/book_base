@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block postload_css %}
+	<link href="{{ STATIC_URL }}css/flatpage.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="span12">
+			<h1 class="flatpage-title">{{ flatpage.title }}</h1>
+			<div class="flatpage-content">
+				{{ flatpage.content }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

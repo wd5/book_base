@@ -109,10 +109,24 @@ class PrintOrder(DetailView):
     """
     model = Book
     template_name = 'books/order_blank.html'
+    context_object_name = 'book'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(PrintOrder, self).dispatch(request, *args, **kwargs)
+
+class PrintBookmark(ListView):
+    model = Book
+    context_object_name = 'books'
+    template_name = 'books/order_blank.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(PrintBookmark, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        books_pk = BookRead.objects.filter(user=self.request.user).values_list('book__pk', flat=True)
+        return Book.objects.filter(pk__in=books_pk).order_by('name')
 
 class RenderOrderBookForm(View):
     """

@@ -3,49 +3,31 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 		<title>Формуляр &mdash; {{ book.name }}</title>
 
-		<style type="text/css">
-			.content {
-				text-indent: 35px;
-			}
-		</style>
+		<link href="{{ STATIC_URL }}css/book-order-blank.css" rel="stylesheet">
 	</head>
-	<body>
-		<!-- Три линии с даннвми о книге -->
-		<table width="400">
-			<tr>
-				<td>{{ book.bbk1 }}</td>
-				<td align="right">{{ book.inventory }}</td>
-			</tr>
-			<tr>
-				<td>{{ book.format }}</td>
-				<td>{{ bppk.author }}</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="content">
-					{{ book.name }}
-					{{ book.genre }}
-					{{ book.author.name }}
-					{{ book.publisher.name }}
-					{{ book.year }}
-					{{ book.pages }}
-					{{ book.pages }}
-					ISBN {{ book.isbn }}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="content">
-					{{ book.price }} р.
-				</td>
-			</tr>
-			<tr>
-				<td>{{ book.bbk2 }}</td>
-				<td align="right">{{ book.bbk2 }}</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input value=" &nbsp; Печать &nbsp; " onClick="print(document);" type="button">
-				</td>
-			</tr>
-		</table>
+	<body align="center;">
+		{% if book or books %}
+			<!-- Три линии с даннвми о книге -->
+			<table class="order-blanks-table">
+				{% if books %}
+					{% for book in books %}
+						{% include "books/includes/order_on_row.html" %}
+						{%  if not forloop.last %}
+							<tr>
+								<td colspan="2">
+									<hr/>
+								</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+				{% if book %}
+					{% include "books/includes/order_on_row.html" %}
+				{% endif %}
+			</table>
+			<input value=" &nbsp; Печать &nbsp; " onClick="print(document);" type="button" class="order-print-button">
+		{% else %}
+			<h3 align="center">Нет формуляров для печати...</h3>
+		{% endif %}
 	</body>
 </html>

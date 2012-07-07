@@ -166,8 +166,7 @@ class OrderBook(models.Model):
     book = models.ForeignKey(Book, verbose_name='Книга')
     user = models.ForeignKey(User, verbose_name='Пользователь')
     library = models.ForeignKey(Library, verbose_name='Библиотека')
-    queue_num = models.PositiveSmallIntegerField('Очередь', default=1)
-    is_taked = models.BooleanField('Взял книгу', default=False)
+    phone = models.CharField('Телефон', max_length=16)
     added = models.DateTimeField('Оформлен', auto_now_add=True)
 
     class Meta:
