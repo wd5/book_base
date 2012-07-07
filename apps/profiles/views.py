@@ -70,8 +70,10 @@ class SignUpUser(FormView):
 
 class SignInUser(FormView):
     form_class = SignInForm
-    success_url = settings.LOGIN_REDIRECT_URL
     template_name = 'profiles/signin.html'
+
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER', settings.LOGIN_REDIRECT_URL)
 
     def form_valid(self, form):
         cd = form.cleaned_data
@@ -82,7 +84,7 @@ class SignInUser(FormView):
         if user is not None:
             if user.is_active:
                 login(self.request, user)
-                return HttpResponseRedirect(self.success_url)
+                return HttpResponseRedirect(self.get_success_url())
 
         return render_to_response(self.template_name,
         {
