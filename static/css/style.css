@@ -1281,3 +1281,7 @@ label[for=library_id] {
 .order-book-form select {
 	font-size: 8pt;
 }
+
+.order-book-cancel {
+	margin-top: 10px;
+}

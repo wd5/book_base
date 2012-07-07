@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Закладки{% endblock %}
+
+{% block breadcrumb %}
+	<style>
+		.bookmark-control-btn
+		{
+			float: right; margin-top: 3px;
+		}
+	</style>
+	<ul class="breadcrumb">
+		<li>
+			<a href="{% url main_page %}">Главная</a>
+			<span class="divider">/</span>
+		</li>
+		<li class="active">
+			<h1>
+				Закладки
+			</h1>
+		</li>
+		{% if books %}
+			<li class="bookmark-control-btn" style="margin-left: -10px;">
+				<a class="btn bookmark-del-all" href="#" target="_blank" style="display: inline-block;">
+					<i class="icon-remove"></i>
+					Очистить все
+				</a>
+			</li>
+			<li class="bookmark-control-btn" style="margin-right: 20px;">
+				<a class="btn" href="{% url bookmarks_print_all %}" target="_blank" style="display: inline-block;">
+					<i class="icon-print"></i>
+					Напечатать все закладки
+				</a>
+			</li>
+		{% endif %}
+	</ul>
+{% endblock %}
+
+
+{% block content %}
+	<div class="row">
+		<div class="span12 book-list">
+			{% for book in books %}
+				{% with can_bookmark_del="True" can_print_blank="True" %}
+					{% include "books/includes/book_on_row.html" %}
+				{% endwith %}
+			{% empty %}
+				<h3 align="center">Нет ни одной закладки...</h3>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="span8 offset3">
+			{% include "includes/pagination.html" %}
+		</div>
+	</div>
+{% endblock %}

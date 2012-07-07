@@ -1,0 +1,13 @@
+{% load bookmark %}
+
+{% is_bookmark request book as bookmark %}
+
+{% with book_id=book.pk is_bookmark=bookmark %}
+	<div class="read-book">
+		{%  if is_bookmark %}
+			{% include "books/includes/bookmark_button_del.html" %}
+		{% else %}
+			{% include "books/includes/bookmark_button_add.html" %}
+		{% endif %}
+	</div>
+{% endwith %}

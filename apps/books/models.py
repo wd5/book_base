@@ -153,15 +153,15 @@ class BookParserJSON(models.Model):
         verbose_name = 'Импорт'
         verbose_name_plural = 'Импорт из JSON'
 
-class BookRead(models.Model):
+class Bookmark(models.Model):
     book = models.ForeignKey(Book, verbose_name='Книга')
     user = models.ForeignKey(User, verbose_name='Пользователь')
     added = models.DateTimeField('Добавлена', auto_now_add=True)
 
     class Meta:
         ordering = ['added', ]
-        verbose_name = 'Буду читать'
-        verbose_name_plural = 'Буду читать'
+        verbose_name = 'Закладкий'
+        verbose_name_plural = 'Закладки'
 
 class OrderBook(models.Model):
     book = models.ForeignKey(Book, verbose_name='Книга')
@@ -173,5 +173,5 @@ class OrderBook(models.Model):
     class Meta:
         ordering = ['added', ]
         unique_together = ('book', 'user', )
-        verbose_name = 'Буду читать'
-        verbose_name_plural = 'Буду читать'
+        verbose_name = 'Закза'
+        verbose_name_plural = 'Закзаы книг'

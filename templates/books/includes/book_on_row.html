@@ -16,17 +16,20 @@
 
 		<div class="book-author">{{ book.author }}</div>
 		<div class="book-genre">{{ book.genre }}</div>
+		{% if can_bookmark_add %}
+			{% include "books/includes/bookmark_button.html" %}
+		{% endif %}
 	</div>
-	{% if can_delete %}
+	{% if can_bookmark_del %}
 		<div class="span3">
 			{# Удалить из "закладок" #}
-			<button class="close book-unread-than-remove" data-book-id="{{ book.pk }}">×</button>
+			<button class="close book-bookmark-del-than-remove-row" data-book-id="{{ book.pk }}">×</button>
 		</div>
 	{% endif %}
-	{% if can_take %}
+	{% if can_print_blank %}
 		<div class="print-order-block">
 			{% if request.user.is_authenticated %}
-				<a class="btn" href="{% url order_print book.pk %}" class="tacke-order" target="_blank">
+				<a class="btn" href="{% url book_blank book.pk %}" class="tacke-order" target="_blank">
 					<i class="icon-print"></i>
 					Получить формуляр
 				</a>

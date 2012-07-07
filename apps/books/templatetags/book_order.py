@@ -15,13 +15,13 @@ def is_take(parser, token):
     if bits_count == 5:
         # Вернуть как переменную
         tag_name, request, book, delimiter, render_as = token.split_contents()
-        return HasBookTakeNode(request, book, render_as)
+        return BookTakeNode(request, book, render_as)
     elif bits_count == 3:
         # Вывести в указанное место
         tag_name, request, book = token.split_contents()
-        return HasBookTakeNode(request, book)
+        return BookTakeNode(request, book)
 
-class HasBookTakeNode(template.Node):
+class BookTakeNode(template.Node):
     def __init__(self, request, book, render_as=None):
         self.render_as = render_as
         self.book = template.Variable(book)

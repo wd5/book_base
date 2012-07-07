@@ -4,24 +4,24 @@ from django import template
 from django.template import Library
 from annoying.functions import get_object_or_None
 
-from ..models import BookRead
+from ..models import Bookmark
 
 register = Library()
 
 @register.tag
-def is_read(parser, token):
+def is_bookmark(parser, token):
     bits = token.contents.split()
     bits_count = len(bits)
     if bits_count == 5:
         # Вернуть как переменную
         tag_name, request, book, delimiter, render_as = token.split_contents()
-        return WillReadNode(request, book, render_as)
+        return BookmarkNode(request, book, render_as)
     elif bits_count == 3:
         # Вывести в указанное место
         tag_name, request, book = token.split_contents()
-        return WillReadNode(request, book)
+        return BookmarkNode(request, book)
 
-class WillReadNode(template.Node):
+class BookmarkNode(template.Node):
     def __init__(self, request, book, render_as=None):
         self.render_as = render_as
         self.book = template.Variable(book)
@@ -34,7 +34,7 @@ class WillReadNode(template.Node):
         will_not_read = False # Не буду читать
 
         if request.user.is_authenticated():
-            book=get_object_or_None(BookRead, user=request.user, book=book)
+            book=get_object_or_None(Bookmark, user=request.user, book=book)
             if book: will_not_read=True
         else:
             will_not_read = book.id in request.session.get('read_ids', {})

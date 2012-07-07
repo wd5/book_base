@@ -2,21 +2,25 @@
 
 from django.conf.urls import patterns, url
 
-from .views import BookList, BookDetail, BookSearch
-from .views import WillReadList, WillRead, UnRead
-from .views import PrintOrder, RenderOrderBookForm, MakeOrderBook
-from .views import PrintBookmark
+from .views import BookList, BookDetail
+from .views import BookBlank, BookBlankFromBookmark
+from .views import BookmarkList, BookmarkAdd, BookmarkDel, BookmarkDelAll
+from .views import RenderOrderBookForm, MakeOrderBook, CancelOrderBook
 
 urlpatterns = patterns('',
     url(r'^$', BookList.as_view(), name='book_list'),
-    url(r'^search/$', BookSearch.as_view(), name='book_search'),
-    url(r'^will-read/$', WillReadList.as_view(), name='book_will_read_list'),
     url(r'^(?P<pk>\d+)/$', BookDetail.as_view(), name='book_detail'),
-    url(r'^(?P<pk>\d+)/will-read/$', WillRead.as_view(), name='book_will_read_add'),
-    url(r'^(?P<pk>\d+)/unread/$', UnRead.as_view(), name='book_unread'),
-    url(r'^(?P<pk>\d+)/print-blank/$', PrintOrder.as_view(), name='order_print'),
-    url(r'^print-bookmark/$', PrintBookmark.as_view(), name='book_bookmarks_print'),
+    url(r'^(?P<pk>\d+)/blank/$', BookBlank.as_view(), name='book_blank'),
+    url(r'^search/$', BookList.as_view(), name='book_search'),
 
-    url(r'^order/render-form/$', RenderOrderBookForm.as_view(), name='order_book_render_form'),
-    url(r'^order/make/$', MakeOrderBook.as_view(), name='order_book_make'),
+
+    url(r'^bookmark/$', BookmarkList.as_view(), name='bookmark_list'),
+    url(r'^bookmark/add/$', BookmarkAdd.as_view(), name='bookmark_add'),
+    url(r'^bookmark/del/$', BookmarkDel.as_view(), name='bookmark_del'),
+    url(r'^bookmark/del/all/$', BookmarkDelAll.as_view(), name='bookmark_del_all'),
+    url(r'^bookmark/print-all/$', BookBlankFromBookmark.as_view(), name='bookmarks_print_all'),
+#
+    url(r'^order/form/$', RenderOrderBookForm.as_view(), name='order_form'),
+    url(r'^order/make/$', MakeOrderBook.as_view(), name='order_make'),
+    url(r'^order/calcel/$', CancelOrderBook.as_view(), name='order_cancel'),
 )

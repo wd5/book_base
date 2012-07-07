@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 
-{% load book_read %}
-{% load book_order %}
-
 {% block title %}{{ book.name }}{% endblock %}
 
 {% block postload_js %}
@@ -37,25 +34,11 @@
 					</a>
 				</li>
 			</ul>
-			{% is_read request book as read %}
-			{% with book_id=book.pk is_read=read %}
-				{% include "books/includes/read_button.html" %}
-			{% endwith %}
+			{% include "books/includes/bookmark_button.html" %}
 
 			{% include "includes/social.html" %}
 
-			<div class="order-book-form-container">
-				{% if request.user.is_authenticated %}
-					{% is_take request book as order_book %}
-					{% if not order_book %}
-						<a href="#" data-book-id="{{ book.pk }}" class="btn btn-info order-book-form-render">
-							Взять книгу
-						</a>
-					{% endif %}
-				{% else %}
-
-				{% endif %}
-			</div>
+			{% include "books/includes/order_container.html" %}
 		</div>
 		<div class="span9 book-desc">
 			<h4>{{ book.name }}</h4>

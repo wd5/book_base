@@ -16,9 +16,16 @@
 		{# Переменные для работы скриптов. #}
 		<script type="text/javascript">
 			var csrfTocken = '{{ csrf_token }}';
+
 			var bookUrl = '{% url book_list %}';
-			var orderBookRenderFormUrl = '{% url order_book_render_form %}';
-			var orderBookMakeUrl = '{% url order_book_make %}';
+
+			var orderBookFormUrl = '{% url order_form %}';
+			var orderBookMakeUrl = '{% url order_make %}';
+			var orderBookCancelUrl = '{% url order_cancel %}';
+
+			var bookmarkAddUrl = '{% url bookmark_add %}';
+			var bookmarkDelUrl = '{% url bookmark_del %}';
+			var bookmarkDelAllUrl = '{% url bookmark_del_all %}';
 		</script>
 
 		{% block preload_js %}
@@ -41,7 +48,7 @@
 
 		<script src="{{ STATIC_URL }}js/jquery-1.7.2.js"></script>
 		<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-		<script src="{{ STATIC_URL }}js/book-read.js"></script>
+		<script src="{{ STATIC_URL }}js/bookmark.js"></script>
 		{% block postload_js%}
 		{% endblock %}
 	</head>

@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load book_read %}
-
 {% block title %}Главная{% endblock %}
 
 {% block postload_css %}
@@ -35,10 +33,7 @@
 						<a href="{% url book_detail book.pk %}">
 							{{ book.name }}
 						</a>
-						{% is_read request book as read %}
-						{% with book_id=book.pk is_read=read %}
-							{% include "books/includes/read_button.html" %}
-						{% endwith %}
+{#						{% include "books/includes/bookmark_button.html" %}#}
 					</li>
 				{% endfor %}
 				<li style="margin: 20px 30px;">

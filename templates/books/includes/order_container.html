@@ -1,0 +1,22 @@
+{% load book_order %}
+
+<div class="order-book-form-container">
+	{% if request.user.is_authenticated %}
+		{% is_take request book as order_book %}
+		{% if order_book %}
+			Вы уже отправили заявку на книгу<br/>
+			Библиотекарь свяжется с вами в ближайшее время...
+			<a href="#" class="btn btn-warning order-book-cancel" data-order-id="{{ order_book.pk }}">
+				Отменить заявку
+			</a>
+		{% else %}
+			<a href="#" data-book-id="{{ book.pk }}" class="btn btn-primary order-book-form-render">
+				Оставить заявку
+			</a>
+		{% endif %}
+	{% else %}
+		<a class="btn btn-primary" data-toggle="modal" href="#signInPopup">
+			Оставить заявку
+		</a>
+	{% endif %}
+</div>
