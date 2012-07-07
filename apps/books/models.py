@@ -172,6 +172,6 @@ class OrderBook(models.Model):
 
     class Meta:
         ordering = ['added', ]
-        unique_together = ('book', 'user', 'library', )
+        unique_together = ('book', 'user', )
         verbose_name = 'Буду читать'
         verbose_name_plural = 'Буду читать'
