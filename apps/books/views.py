@@ -103,11 +103,16 @@ class WillReadList(ListView):
         books = Book.objects.filter(id__in=read_ids)
         return books
 
-class PrintOrder(View):
+class PrintOrder(DetailView):
     """
     Распечатать формуляр.
     """
-    pass
+    model = Book
+    template_name = 'books/order_blank.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(PrintOrder, self).dispatch(request, *args, **kwargs)
 
 class RenderOrderBookForm(View):
     """
