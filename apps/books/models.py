@@ -164,15 +164,21 @@ class Bookmark(models.Model):
         verbose_name_plural = 'Закладки'
 
 class OrderBook(models.Model):
+    STATUS_CHOICES = (
+        ('not_process', 'Не обработан'),
+        ('in_procss', 'В процессе'),
+        ('complete', 'Завершен'),
+        ('reject', 'Отклонён'),
+    )
     book = models.ForeignKey(Book, verbose_name='Книга')
     user = models.ForeignKey(User, verbose_name='Пользователь')
     library = models.ForeignKey(Library, verbose_name='Библиотека')
     phone = models.CharField('Телефон', max_length=16)
-    complite = models.BooleanField('Обраотана', default=False)
-    added = models.DateTimeField('Оформлен', auto_now_add=True)
+    status = models.CharField('Статус', max_length=16, choices=STATUS_CHOICES, default='not_process')
+    pub_date = models.DateTimeField('Подана', auto_now_add=True)
 
     class Meta:
-        ordering = ['-complite', 'added', ]
+        ordering = ['-pub_date', 'status', ]
         unique_together = ('book', 'user', )
         verbose_name = 'Закза'
         verbose_name_plural = 'Закзаы книг'
