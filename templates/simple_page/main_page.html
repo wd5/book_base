@@ -16,7 +16,8 @@
 {% block content %}
 	<div class="row">
 		<div class="span8 offset1">
-			<form method="POST" action="{% url book_search %}">
+			<form method="POST" action="{% url book_list %}">
+				{% csrf_token %}
 				<input type="text" class="span9" name="text" placeholder="Найти книгу" id="main_search_input" />
 			</form>
 		</div>
