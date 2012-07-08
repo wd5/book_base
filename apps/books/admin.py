@@ -10,10 +10,10 @@ from .models import Library, LibraryCity
 from .models import Author, Publisher, Genre, Language, Format, Series
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'library', 'inventory', 'genre', 'year', 'image_preview', )
-    list_editable = ('library', )
+    list_display = ('name', 'taked', 'library', 'author', 'genre', 'year', 'image_preview', )
+    list_editable = ('library', 'taked', )
     list_filter = ('genre', 'author', 'series', 'publisher', )
-    search_fields = ('name', 'inventory', 'author', )
+    search_fields = ('name', 'author', )
 
     def image_preview(self, obj):
         if obj.image:
