@@ -1,0 +1,7 @@
+<div class="watermark">
+	{% if book.taked %}
+		<img alt="свободна" src="{{ STATIC_URL }}img/watermark-red.png">
+	{% else %}
+		<img alt="свободна" src="{{ STATIC_URL }}img/watermark-green.png">
+	{% endif %}
+</div>
