@@ -1290,3 +1290,8 @@ label[for=library_id] {
 {
 	float: right; margin-top: 3px;
 }
+
+.pager .active a {
+	font-weight: bold;
+	background-color: #DDDDDD;
+}
