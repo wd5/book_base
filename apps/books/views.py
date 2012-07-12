@@ -22,7 +22,7 @@ class BookList(ListView):
     model = Book
     context_object_name = 'books'
     template_name = 'books/book_list.html'
-    paginate_by = 2
+    paginate_by = 10
     allow_empty = True
 
     def get_queryset(self):
