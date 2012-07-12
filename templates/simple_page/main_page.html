@@ -7,19 +7,34 @@
 		.book-list li {
 			margin-top: 5px;
 		}
-		.read-book {
-			display: inline;
+
+		/* Небольшой костыль для кнопки поиска на главной */
+		.custom-submit {
+			background-color: #FFFFFF;
+			border: 0 none;
+			position: relative;
+			right: 24px;
+			top: -2px;
+			padding-right: 8px;
 		}
 	</style>
+	<link href="{{ STATIC_URL }}css/book-alphabet-search.css" rel="stylesheet">
+{% endblock %}
+
+{% block postload_js %}
+	<script src="{{ STATIC_URL }}js/book-alphabet-search.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
 
 {% block content %}
 	<div class="row">
-		<div class="span8 offset1">
-			<form method="POST" action="{% url book_list %}">
+		<div class="span12">
+			<form method="POST" action="{% url book_list %}" style="text-align: center;">
 				{% csrf_token %}
 				<input type="text" class="span9" name="text" placeholder="Найти книгу" id="main_search_input" />
+				<input class="custom-submit icon-search" type="submit" name="" value="">
 			</form>
+
+			{% include "books/includes/alphabet_form.html" %}
 		</div>
 	</div>
 

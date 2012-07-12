@@ -16,12 +16,23 @@
 	</ul>
 {% endblock %}
 
+{% block postload_js %}
+	<script src="{{ STATIC_URL }}js/book-alphabet-search.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+{% block postload_css %}
+	<link href="{{ STATIC_URL }}css/book-alphabet-search.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 	<div class="row">
 		<div class="filter span3">
 			&nbsp;
 		</div>
 		<div class="span9">
+			<div class="span9">
+				{% include "books/includes/alphabet_form.html" %}
+			</div>
 			{% for book in books %}
 				{% with can_bookmark_add="True" %}
 					{% include "books/includes/book_on_row.html" %}

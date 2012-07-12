@@ -1,0 +1,28 @@
+.alphabet-container {
+	text-align: center;
+	margin-top: 10px; margin-bottom: 20px;
+}
+.alphabet-container  ul {
+	margin-bottom: 7px;
+	cursor: default;
+	/* Запрет выделения текста */
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select:none;
+}
+.alphabet-container  li:hover {
+	padding: 3px;
+	margin: 0;
+	border-radius: 4px;
+	background-color: #0088CC;
+}
+.alphabet-container  li {
+	font-weight: bolder;
+	display: inline;
+	margin-left: 3px;
+	margin-right: 3px;
+	font-size: 14pt;
+	cursor: pointer;
+}

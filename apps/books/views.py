@@ -23,17 +23,17 @@ class BookList(ListView):
     context_object_name = 'books'
     template_name = 'books/book_list.html'
     paginate_by = 2
+    allow_empty = True
 
-    def get(self, request, *args, **kwargs):
-        qset = self.get_queryset()
+    def get_queryset(self):
+        qset = super(BookList, self).get_queryset() # TODO: кэшировать
 
-        self.object_list = qset
-        allow_empty = self.get_allow_empty()
-        if not allow_empty and len(self.object_list) == 0:
-            raise Http404(_(u"Empty list and '%(class_name)s.allow_empty' is False.") % {'class_name': self.__class__.__name__})
-        context = self.get_context_data(object_list=self.object_list)
+        startswith=self.request.GET.get('startswith')
+        if startswith:
+            qset=qset.filter(name__startswith=startswith)
 
-        return render_to_response(self.template_name, context, context_instance=RequestContext(self.request))
+        return qset
+
 
 class BookDetail(DetailView):
     model = Book
