@@ -109,7 +109,7 @@ class Library(models.Model):
 
 class Book(models.Model):
     name = models.CharField('Название', max_length=256)
-    inventory = models.PositiveIntegerField('Инвентарный номер')
+    inventory = models.CharField('Инвентарный номер', max_length=32)
     volume = models.CharField('Том', max_length=16, blank=True, null=True)
     author = models.ForeignKey(Author, verbose_name='Автор', blank=True, null=True)
     isbn = models.CharField('ISBN', max_length=20, blank=True, null=True)
@@ -130,7 +130,7 @@ class Book(models.Model):
     format = models.ForeignKey(Format, verbose_name='Формат', blank=True, null=True)
     image = models.ImageField('Превьюшка', upload_to='books_image', blank=True, null=True)
 
-    library = models.ForeignKey(Library, verbose_name='Библиотека')
+    library = models.ForeignKey(Library, verbose_name='Библиотека', blank=True, null=True)
     taked = models.BooleanField('Книга у читателя', default=False)
 
     update = models.DateTimeField('Обновлена', auto_now=True)

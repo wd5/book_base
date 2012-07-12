@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic.base import View
-from django.views.generic.edit import FormView, DeleteView
+from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.template.context import RequestContext
@@ -21,7 +21,19 @@ LAST_LOOK_BOOK_COUNT = getattr(settings, 'LAST_LOOK_BOOK_COUNT', 10)
 class BookList(ListView):
     model = Book
     context_object_name = 'books'
-    paginate_by = 10
+    template_name = 'books/book_list.html'
+    paginate_by = 2
+
+    def get(self, request, *args, **kwargs):
+        qset = self.get_queryset()
+
+        self.object_list = qset
+        allow_empty = self.get_allow_empty()
+        if not allow_empty and len(self.object_list) == 0:
+            raise Http404(_(u"Empty list and '%(class_name)s.allow_empty' is False.") % {'class_name': self.__class__.__name__})
+        context = self.get_context_data(object_list=self.object_list)
+
+        return render_to_response(self.template_name, context, context_instance=RequestContext(self.request))
 
 class BookDetail(DetailView):
     model = Book

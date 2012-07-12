@@ -11,8 +11,6 @@ urlpatterns = patterns('',
     url(r'^$', BookList.as_view(), name='book_list'),
     url(r'^(?P<pk>\d+)/$', BookDetail.as_view(), name='book_detail'),
     url(r'^(?P<pk>\d+)/blank/$', BookBlank.as_view(), name='book_blank'),
-    url(r'^search/$', BookList.as_view(), name='book_search'),
-
 
     url(r'^bookmark/$', BookmarkList.as_view(), name='bookmark_list'),
     url(r'^bookmark/add/$', BookmarkAdd.as_view(), name='bookmark_add'),

@@ -9,22 +9,27 @@ def parser_json(json_data):
         json_books = json.loads(json_data)
     except :
         return books
-
+    i = 0
     for book in json_books:
+        name=book.get('name', '').replace('null', '')
+        inventory=book.get('inventory', '').replace('null', '')
+        if not inventory or not name:
+            continue
+
         books.append({
-            'inventory': book.get('inventory', '').replace('null', ''),
-            'name': book.get('name', '').replace('null', ''),
+            'inventory': inventory,
+            'name': name,
             'volume': book.get('volume', ''),
             'author': book.get('autor', ''),
-            'isbn': book.get('isbn', '').replace('null', ''),
-            'isbn10': book.get('isbn10', '').replace('null', ''),
-            'bbk1': book.get('BBK1', ''),
-            'bbk1_name': book.get('BBK1_name', ''),
-            'bbk2': book.get('BBK2', ''),
-            'bbk2_name': book.get('BBK2_name', ''),
+            'isbn': book.get('isbn', ''),
+            'isbn10': book.get('isbn10', ''),
+            'bbk1': book.get('BBK1', '').replace('null', ''),
+            'bbk1_name': book.get('BBK1_name', '').replace('null', ''),
+            'bbk2': book.get('BBK2', '').replace('null', ''),
+            'bbk2_name': book.get('BBK2_name', '').replace('null', ''),
             'genre': book.get('genre', ''),
             'series': book.get('series', ''),
-            'content_type': book.get('content_type', ''),
+            'content_type': book.get('content_type', '').replace('null', ''),
             'publisher': book.get('publisher', ''),
             'city': book.get('city', ''),
             'year': book.get('year', ''),
@@ -35,4 +40,7 @@ def parser_json(json_data):
             'library': book.get('Lib_Name', ''),
             'library_city': book.get('Lib_City', ''),
         })
+        i+=1
+        if i > 100:
+            break
     return books

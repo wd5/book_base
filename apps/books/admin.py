@@ -43,26 +43,46 @@ class BookParserJSONAdmin(admin.ModelAdmin):
         i=0
         books = parser_json(data)
         for book in books:
+            print '%s > begin' % i
+            library_city_name=book['library_city'].replace('null', '').strip()
+            library_name=book['library'].replace('null', '').strip()
             try:
-                library_city, created = LibraryCity.objects.get_or_create(name=book['library_city'])
-                library, created = Library.objects.get_or_create(name=book['library'], city=library_city)
+                library_city, created = LibraryCity.objects.get_or_create(name=library_city_name)
+                library, created = Library.objects.get_or_create(name=library_name, city=library_city)
             except :
                 continue
             try:
+                name = book['name'].replace('null', '').strip()
+                inventory = book['inventory'].replace('null', '').strip()
                 book_obj, created = Book.objects.get_or_create(
-                    name=book['name'],
-                    inventory=book['inventory'],
-                    isbn=book['isbn'],
-                    isbn10=book['isbn10'],
-                    library=library,
+                    name=name,
+                    inventory=inventory
                 )
 
-                author, created = Author.objects.get_or_create(name=book['author'])
-                publisher, created = Publisher.objects.get_or_create(name=book['publisher'])
-                genre, created = Genre.objects.get_or_create(name=book['genre'])
-                language, created = Language.objects.get_or_create(name=book['language'])
-                format, created = Format.objects.get_or_create(name=book['format'])
-                series, created = Series.objects.get_or_create(name=book['series'])
+                if not book['author'] or book['author'] != 'null':
+                    author, created = Author.objects.get_or_create(name=book['author'])
+                else:
+                    author = None
+                if not book['publisher'] or book['publisher'] != 'null':
+                    publisher, created = Publisher.objects.get_or_create(name=book['publisher'])
+                else:
+                    publisher = None
+                if not book['genre'] or book['genre'] != 'null':
+                    genre, created = Genre.objects.get_or_create(name=book['genre'])
+                else:
+                    genre = None
+                if not book['language'] or book['language'] != 'null':
+                    language, created = Language.objects.get_or_create(name=book['language'])
+                else:
+                    language = None
+                if not book['format'] or book['format'] != 'null':
+                    format, created = Format.objects.get_or_create(name=book['format'])
+                else:
+                    format = None
+                if not book['series'] or book['series'] != 'null':
+                    series, created = Series.objects.get_or_create(name=book['series'])
+                else:
+                    series = None
 
                 book_obj.author = author
                 book_obj.publisher = publisher
@@ -72,22 +92,21 @@ class BookParserJSONAdmin(admin.ModelAdmin):
                 book_obj.series = series
                 book_obj.library = library
 
-                book_obj.bbk1 = book['bbk1']
-                book_obj.bbk1_name = book['bbk1_name']
-                book_obj.bbk2 = book['bbk2']
-                book_obj.bbk2_name = book['bbk2_name']
-                book_obj.content_type = book['content_type']
-                book_obj.city = book['city']
-                book_obj.year = book['year']
-                book_obj.pages = book['pages']
-                book_obj.price = book['price']
+                book_obj.bbk1 = book['bbk1'].replace('null', '').strip()
+                book_obj.bbk1_name = book['bbk1_name'].replace('null', '').strip()
+                book_obj.bbk2 = book['bbk2'].replace('null', '').strip()
+                book_obj.bbk2_name = book['bbk2_name'].replace('null', '').strip()
+                book_obj.content_type = book['content_type'].replace('null', '').strip()
+                book_obj.city = book['city'].replace('null', '').strip()
+                book_obj.year = book['year'].replace('null', '').strip()
+                book_obj.pages = book['pages'].replace('null', '').strip()
+                book_obj.price = book['price'].replace('null', '').strip()
 
                 book_obj.save()
-            except :
+            except Exception, e:
+                print i
                 continue
-
-            if i > 50:
-                break
+            print '%s > end' % i
             i += 1
 
         obj.book_count = i
