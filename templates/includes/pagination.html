@@ -14,19 +14,24 @@
 			</li>
 
 			{% for p in page_obj.paginator.page_range %}
-				{% ifequal p page_obj.number %}
-					<li class="active">
-						<a>
-							{{ p }}
-						</a>
-					</li>
-				{% else %}
-					<li>
-						<a href="?page={{ p }}">
-							{{ p }}
-						</a>
-					</li>
-				{% endifequal %}
+				{% if p < 10 %}
+					{% ifequal p page_obj.number %}
+						<li class="active">
+							<a>
+								{{ p }}
+							</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="?page={{ p }}">
+								{{ p }}
+							</a>
+						</li>
+					{% endifequal %}
+				{% elif p == 10 %}
+					...
+				{% endif %}
+
 			{% endfor %}
 
 			<li class="next">
