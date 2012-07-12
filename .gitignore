@@ -19,3 +19,4 @@ dist
 *.egg-info
 
 local_settings.py
+todo.txt
