@@ -23,20 +23,18 @@
 						</li>
 					{% else %}
 						<li>
-							<a href="?page={{ p }}">
+							<a href="?page={{ p }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">
 								{{ p }}
 							</a>
 						</li>
 					{% endifequal %}
-				{% elif p == 10 %}
-					...
 				{% endif %}
 
 			{% endfor %}
 
 			<li class="next">
 				{% if page_obj.has_next %}
-					<a href="?page={{ page_obj.next_page_number }}">
+					<a href="?page={{ page_obj.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">
 						&rarr;
 					</a>
 				{% else %}
