@@ -8,7 +8,7 @@
 			margin-top: 5px;
 		}
 
-		/* Небольшой костыль для кнопки поиска на главной */
+			/* Небольшой костыль для кнопки поиска на главной */
 		.custom-submit {
 			background-color: #FFFFFF;
 			border: 0 none;
@@ -28,9 +28,9 @@
 {% block content %}
 	<div class="row">
 		<div class="span12">
-			<form method="GET" action="{% url book_list %}" style="text-align: center;" class="book-search-form">
-				<input type="text" class="span9" name="icontains" placeholder="Найти книгу" id="main_search_input" value="{{ icontains }}"/>
-				<input class="custom-submit icon-search" type="submit" />
+			<form method="GET" action="{% url book_list %}" style="text-align: center;">
+				<input type="text" class="span9" name="icontains" placeholder="Найти книгу" />
+				<input class="custom-submit icon-search" type="submit" name="" value="">
 			</form>
 
 			{% include "books/includes/alphabet_form.html" %}
@@ -48,7 +48,7 @@
 						<a href="{% url book_detail book.pk %}">
 							{{ book.name }}
 						</a>
-{#						{% include "books/includes/bookmark_button.html" %}#}
+						{#						{% include "books/includes/bookmark_button.html" %}#}
 					</li>
 				{% endfor %}
 				<li style="margin: 20px 30px;">
