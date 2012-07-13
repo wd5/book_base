@@ -20,10 +20,9 @@
 				</li>
 				{% ifnotequal main_page_url request.path %}
 					<li>
-						<form method="POST" action="{% url book_list %}" class="navbar-search pull-right">
-							{% csrf_token %}
-							<input type="text" class="search-query span3" placeholder="Найти книгу">
-							<input type="submit" value="" name="" class="submit icon-search" />
+						<form method="GET" action="{% url book_list %}" class="navbar-search pull-right" class="book-search-form" >
+							<input type="text" name="icontains" value="{{ icontains }}" class="search-query span3" placeholder="Найти книгу">
+							<input type="submit" name="" class="submit icon-search" />
 						</form>
 					</li>
 				{% endifnotequal %}

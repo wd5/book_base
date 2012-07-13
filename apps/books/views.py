@@ -25,10 +25,19 @@ class BookList(ListView):
     paginate_by = 10
     allow_empty = True
 
+    def get_context_data(self, **kwargs):
+        context = super(BookList, self).get_context_data(**kwargs)
+        context['icontains']=self.request.GET.get('icontains', '')
+        return context
+
     def get_queryset(self):
         qset = super(BookList, self).get_queryset() # TODO: кэшировать
 
+        icontains=self.request.GET.get('icontains')
         startswith=self.request.GET.get('startswith')
+
+        if icontains:
+            qset=qset.filter(name__icontains=icontains)
         if startswith:
             qset=qset.filter(name__startswith=startswith)
 

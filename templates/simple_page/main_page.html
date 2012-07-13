@@ -28,10 +28,9 @@
 {% block content %}
 	<div class="row">
 		<div class="span12">
-			<form method="POST" action="{% url book_list %}" style="text-align: center;">
-				{% csrf_token %}
-				<input type="text" class="span9" name="text" placeholder="Найти книгу" id="main_search_input" />
-				<input class="custom-submit icon-search" type="submit" name="" value="">
+			<form method="GET" action="{% url book_list %}" style="text-align: center;" class="book-search-form">
+				<input type="text" class="span9" name="icontains" placeholder="Найти книгу" id="main_search_input" value="{{ icontains }}"/>
+				<input class="custom-submit icon-search" type="submit" />
 			</form>
 
 			{% include "books/includes/alphabet_form.html" %}
