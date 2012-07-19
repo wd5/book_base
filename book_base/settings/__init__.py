@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'filebrowser',
     'django.contrib.admin',
 
+    'sorl.thumbnail',
     'django_ulogin',
     'captcha',
     'annoying',

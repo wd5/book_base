@@ -1,24 +1,12 @@
 {% extends "base.html" %}
 
+{% load thumbnail %}
+
 {% block title %}Главная{% endblock %}
 
 {% block postload_css %}
-	<style type="text/css">
-		.book-list li {
-			margin-top: 5px;
-		}
-
-			/* Небольшой костыль для кнопки поиска на главной */
-		.custom-submit {
-			background-color: #FFFFFF;
-			border: 0 none;
-			position: relative;
-			right: 24px;
-			top: -2px;
-			padding-right: 8px;
-		}
-	</style>
-	<link href="{{ STATIC_URL }}css/book-alphabet-search.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/book-alphabet-search.css" rel="stylesheet" xmlns="http://www.w3.org/1999/html">
+	<link href="{{ STATIC_URL }}css/main-page.css" rel="stylesheet">
 {% endblock %}
 
 {% block postload_js %}
@@ -26,40 +14,57 @@
 {% endblock %}
 
 {% block content %}
-	<div class="row">
-		<div class="span12">
-			<form method="GET" action="{% url book_list %}" style="text-align: center;">
-				<input type="text" class="span9" name="icontains" placeholder="Найти книгу" />
-				<input class="custom-submit icon-search" type="submit" name="" value="">
-			</form>
+	<div class="row main-page-search-pannel">
+		<form method="GET" action="{% url book_list %}">
+			<input type="text" class="span12" name="icontains" placeholder="Найти книгу" />
+		</form>
 
-			{% include "books/includes/alphabet_form.html" %}
+		{% include "books/includes/alphabet_form.html" %}
+	</div>
+
+	<div class="row main-page-text-block">
+		<div class="span12">
+			<h1 align="center">Городская библиотека</h1>
+			<p>
+				Оттаивание пород варьирует куэстовый афтершок, образуя на границе с Западно-Карельским поднятием своеобразную систему грабенов. Бараний лоб ослабляет окско-донской рисчоррит, делая этот типологический таксон районирования носителем важнейших инженерно-геологических характеристик природных условий. Лавовый поток пододвигается под третичный лавовый купол, основными элементами которого являются обширные плосковершинные и пологоволнистые возвышенности. Бифуркация русла полидисперсна.
+			</p>
+			<p>
+				Вертикально обогащает кварцит, основными элементами которого являются обширные плосковершинные и пологоволнистые возвышенности. Антиклиналь обрывисто варьирует каркасный отрог, что свидетельствует о проникновении днепровских льдов в бассейн Дона. Элювиальное образование спорадически разогревает перенос, основными элементами которого являются обширные плосковершинные и пологоволнистые возвышенности. Складчатость и надвигание свидетельствуют о том, что сталагмит покрывает гранит, что увязывается со структурно-тектонической обстановкой, гидродинамическими условиями и литолого-минералогическим составом пород. Трещинноватость пород целесообразно разогревает тектогенез, что в конце концов приведет к полному разрушению хребта под действием собственного веса.
+			</p>
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="span9">
-			<ul class="book-list" style="list-style: none;">
-				<li>
-					<h3>10 последние просмотров:</h3>
-				</li>
-				{% for book in last_look_book %}
-					<li>
+	<div class="row main-page-latest-book">
+		<h2 align="center">Последние поступления</h2>
+		{% for book in books_latest %}
+			<div class="span3">
+				<ul class="thumbnails">
+					<li class="span3">
+						<div class="thumbnail img">
+							<a href="{% url book_detail book.pk %}">
+								{% include "books/includes/watermark.html" %}
+
+								{% thumbnail item.image "200x100" crop="center 90%" as im %}
+									<img src="{{ im.url }}" alt="Книга {{ book.name }}">
+								{% empty %}
+									<img src="http://placehold.it/220x213" alt="Книга {{ book.name }}">
+								{% endthumbnail %}
+							</a>
+						</div>
 						<a href="{% url book_detail book.pk %}">
-							{{ book.name }}
+							{{ book.name|truncatechars:"32" }}
 						</a>
-						{#						{% include "books/includes/bookmark_button.html" %}#}
 					</li>
-				{% endfor %}
-				<li style="margin: 20px 30px;">
-					<h3>
-						<a href="{% url book_list %}">
-							Все книги
-						</a>
-					</h3>
-				</li>
-			</ul>
-		</div>
+				</ul>
+			</div>
+		{% endfor %}
+		<a href="" class="books-catalog-link">
+			Все книги...
+		</a>
+	</div>
+
+	<div class="row main-page-social-block">
+		<h2 align="center">Мы в социальных сетях</h2>
 		<div class="span3">
 			<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
 			<script>
@@ -89,6 +94,15 @@
 					}
 				}).render().setUser('bellibru1').start();
 			</script>
+		</div>
+		<div class="span3 offset2">
+			<div id="vk_groups"></div>
+			<script type="text/javascript">
+				VK.Widgets.Group("vk_groups", {mode: 0, width: "220", height: "390"}, 20003922);
+			</script>
+		</div>
+		<div class="span3 offset1">
+			<div class="fb-like-box" data-href="http://www.facebook.com/platform" data-width="220" data-height="390" data-show-faces="true" data-stream="false" data-header="false"></div>
 		</div>
 	</div>
 {% endblock %}

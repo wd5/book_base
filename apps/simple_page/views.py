@@ -9,5 +9,5 @@ class MainPage(TemplateView):
 
     def get_context_data(self, **kwargs):
         context=super(MainPage, self).get_context_data(**kwargs)
-        context['latest_book']=Book.objects.order_by('-update')
+        context['books_latest']=Book.objects.order_by('-update')[:8]
         return context
