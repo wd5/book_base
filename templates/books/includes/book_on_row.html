@@ -15,8 +15,8 @@
 		</a>&nbsp;
 		<span class="book-year">({{ book.year }} г.)</span>
 
-		<div class="book-author">{{ book.author }}</div>
-		<div class="book-genre">{{ book.genre }}</div>
+		<div class="book-author">{{ book.author|default:"" }}</div>
+		<div class="book-genre">{{ book.genre|default:"" }}</div>
 		{% if can_bookmark_add %}
 			{% include "books/includes/bookmark_button.html" %}
 		{% endif %}
