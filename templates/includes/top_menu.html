@@ -31,7 +31,7 @@
 				{% if request.user.is_authenticated %}
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-							{{ request.user }} <b class="caret"></b>
+							{{ request.user.get_profile.name }} <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
 							<li>
