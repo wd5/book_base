@@ -1,0 +1,9 @@
+{% extends "profiles/email/base.html" %}
+
+{% block title %}Восстановленеи пароля{% endblock %}
+
+{% block content %}
+	Вы зарегистраировались на сайте htt://{{ site_name }}/
+	Логин для входа: {{ email }}
+	Пароль: {{ new_password }}
+{% endblock %}

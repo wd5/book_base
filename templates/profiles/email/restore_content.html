@@ -1,0 +1,9 @@
+{% extends "profiles/email/base.html" %}
+
+{% block title %}Восстановление пароля{% endblock %}
+
+{% block content %}
+	Восстановленеи пароля на <a href="htt://{{ site_name }}/">{{ site_name }}</a><br />
+	Логин для входа: {{ email }}<br />
+	Пароль: {{ new_password }}<br />
+{% endblock %}

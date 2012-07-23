@@ -99,7 +99,7 @@ class RestorePassword(FormView):
     template_name = 'profiles/restore.html'
 
     def form_valid(self, form):
-        subject = render_to_string('profiles/restorepassword/subject.txt')
+        subject = render_to_string('profiles/email/restore_subject.txt')
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = form.cleaned_data['email']
 
@@ -112,9 +112,10 @@ class RestorePassword(FormView):
         context = {
             'email': to_email,
             'new_password': new_password,
+            'sitename': Site.objects.get_current().domain,
         }
-        html_content = render_to_string('profiles/restorepassword/body.html', context)
-        text_content = render_to_string('profiles/restorepassword/body.txt', context)
+        html_content = render_to_string('profiles/email/restore_content.html', context)
+        text_content = render_to_string('profiles/email/restore_content.txt', context)
 
         msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email, ])
         msg.attach_alternative(html_content, "text/html")
