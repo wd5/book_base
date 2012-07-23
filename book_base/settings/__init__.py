@@ -119,7 +119,7 @@ INSTALLED_APPS = (
     'apps.profiles',
 )
 
-AUTH_PROFILE_MODULE = 'apps.profiles.Profile'
+AUTH_PROFILE_MODULE = 'profiles.Profile'
 AUTHENTICATION_BACKENDS = (
     'apps.profiles.backends.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
