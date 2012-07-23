@@ -3,6 +3,7 @@
 import uuid
 from django.conf import settings
 from django.contrib.auth import logout
+from django.contrib.sites.models import Site
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.views.generic.edit import FormView
@@ -39,31 +40,33 @@ class SignUpUser(FormView):
         user.set_password(password)
         user.save()
 
-        # Создания профиля
+        # Ставим пароль
+        user.set_password(password)
+        user.save()
+
+        # Создание профиля
         profile,created=Profile.objects.get_or_create(user=user)
         profile.name=name
         profile.save()
 
-        # Отправка письма
-        context = {
-            'password': password,
-        }
-        subject = render_to_string('profiles/signup/subject.txt', context)
-        from_email = settings.DEFAULT_FROM_EMAIL
-        to_email = email
-        context = {
-            'email': email,
-            'password': password,
-        }
-        html_content = render_to_string('profiles/signup/body.html', context)
-        text_content = render_to_string('profiles/signup/body.txt', context)
-
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email, ])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-
         user = authenticate(username=username, password=password)
         login(self.request, user)
+
+        context = {
+            'email': user.email,
+            'password': password,
+            'sitename': Site.objects.get_current().domain,
+        }
+
+        from_email = settings.EMAIL_ADDRESS_FROM
+        to = user.email
+        subject = render_to_string('profiles/email/signup_subject.txt', context)
+        text_content = render_to_string('profiles/email/signup_content.txt', context)
+        html_content = render_to_string('profiles/email/signup_content.html', context)
+
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to, ])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
         return HttpResponseRedirect(self.success_url)
 
