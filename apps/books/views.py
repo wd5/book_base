@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.db.models.query_utils import Q
 from django.http import Http404, HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic.base import View
@@ -37,9 +38,9 @@ class BookList(ListView):
         startswith=self.request.GET.get('startswith')
 
         if icontains:
-            qset=qset.filter(name__icontains=icontains)
+            qset=qset.filter(Q(name__icontains=icontains) | Q(author__name__icontains=icontains))
         if startswith:
-            qset=qset.filter(name__startswith=startswith)
+            qset=qset.filter(Q(name__startswith=startswith) | Q(author__name__startswith=startswith))
 
         return qset
 
