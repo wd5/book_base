@@ -9,7 +9,6 @@ def parser_json(json_data):
         json_books = json.loads(json_data)
     except :
         return books
-    i = 0
     for book in json_books:
         name=book.get('name', '').replace('null', '')
         inventory=book.get('inventory', '').replace('null', '')
@@ -40,7 +39,4 @@ def parser_json(json_data):
             'library': book.get('Lib_Name', ''),
             'library_city': book.get('Lib_City', ''),
         })
-        i+=1
-        if i > 100:
-            break
     return books
