@@ -30,12 +30,14 @@ class SignUpForm(forms.Form):
     captcha = CaptchaField(label='Капча', help_text='Введите текст с картинки')
 
     def clean_email(self):
-        email = self.cleaned_data["email"]
+        email = self.cleaned_data["email"].lower()
         try:
             User.objects.get(email=email)
             raise forms.ValidationError("Пользовтаель с таким адресом уже существует")
-        except User.DoesNotExist:
+        except User.DoesNotExist, e:
             return email
+        except User.MultipleObjectsReturned, e:
+            raise forms.ValidationError("Пользовтаель с таким адресом уже существует")
 
     def clean_name(self):
         name = self.cleaned_data['name']

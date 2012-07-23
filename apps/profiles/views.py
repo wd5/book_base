@@ -36,11 +36,10 @@ class SignUpUser(FormView):
         # Регистрация пользователя
         password = uuid.uuid4().hex[:8]
         username = 'regform_' + uuid.uuid4().hex[:8]
-        user = User(email=email,username=username,is_active=True)
-        user.set_password(password)
-        user.save()
+        user, created = User.objects.get_or_create(email=email)
 
-        # Ставим пароль
+        user.username=username
+        user.is_active=True
         user.set_password(password)
         user.save()
 
