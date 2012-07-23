@@ -1,0 +1,9 @@
+{% extends "profiles/email/base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+	Вы зарегистраировались на сайте <a href="htt://{{ site_name }}/">{{ site_name }}</a><br />
+	Логин для входа: {{ email }}<br />
+	Пароль: {{ password }}<br />
+{% endblock %}

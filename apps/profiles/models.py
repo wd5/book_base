@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import uuid
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 from django_ulogin.signals import assign
 from django_ulogin.models import ULoginUser
@@ -22,6 +27,7 @@ def catch_ulogin_signal(*args, **kwargs):
     user=kwargs['user']
 
     if kwargs['registered']:
+        user.user_name = 'social_' + str(uuid.uuid1())[:10]
         user.first_name=json.get('first_name', '')
         user.last_name=json.get('last_name', '')
         user.email=json.get('email', '')
@@ -29,10 +35,27 @@ def catch_ulogin_signal(*args, **kwargs):
 
         profile, created = Profile.objects.get_or_create(user=user)
 
-        if created:
-            profile.name=json.get('nickname') or '%s %s' % (user.first_name, user.last_name)
-            profile.save()
+        profile.name=json.get('nickname') or '%s %s' % (user.first_name, user.last_name)
+        profile.save()
 
-        # TODO: генерить пароль и отправлять на почту
+        password = str(uuid.uuid1())[:7]
+        user.set_password(password)
+        user.save()
+
+        context = {
+            'email': user.email,
+            'password': password,
+            'sitename': Site.objects.get_current().domain,
+        }
+
+        from_email = settings.EMAIL_ADDRESS_FROM
+        to = user.email
+        subject = render_to_string('profiles/email/registration_subject.txt', context)
+        text_content = render_to_string('profiles/email/registration_content.txt', context)
+        html_content = render_to_string('profiles/email/registration_content.html', context)
+
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to, ])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
 assign.connect(receiver=catch_ulogin_signal, sender=ULoginUser, dispatch_uid='profiles.models')
