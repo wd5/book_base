@@ -50,9 +50,9 @@ def catch_ulogin_signal(*args, **kwargs):
 
         from_email = settings.EMAIL_ADDRESS_FROM
         to = user.email
-        subject = render_to_string('profiles/email/registration_subject.txt', context)
-        text_content = render_to_string('profiles/email/registration_content.txt', context)
-        html_content = render_to_string('profiles/email/registration_content.html', context)
+        subject = render_to_string('profiles/email/signup_subject.txt', context)
+        text_content = render_to_string('profiles/email/signup_content.txt', context)
+        html_content = render_to_string('profiles/email/signup_content.html', context)
 
         msg = EmailMultiAlternatives(subject, text_content, from_email, [to, ])
         msg.attach_alternative(html_content, "text/html")
