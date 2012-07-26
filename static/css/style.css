@@ -1146,4 +1146,5 @@ label[for=library_id] {
 .pager .active a {
 	font-weight: bold;
 	background-color: #DDDDDD;
+	cursor: default;
 }
