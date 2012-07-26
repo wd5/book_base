@@ -75,6 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'pagination.middleware.PaginationMiddleware',
     'apps.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
@@ -112,6 +113,7 @@ INSTALLED_APPS = (
     'django_ulogin',
     'captcha',
     'annoying',
+    'pagination',
 
     'apps.books',
     'apps.flatpages',

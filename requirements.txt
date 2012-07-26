@@ -7,3 +7,4 @@ django-annoying==0.7.6
 pytils==0.2.3
 django-ulogin
 django-simple-captcha
+django-pagination
