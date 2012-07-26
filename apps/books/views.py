@@ -21,10 +21,9 @@ LAST_LOOK_BOOK_COUNT = getattr(settings, 'LAST_LOOK_BOOK_COUNT', 10)
 
 class BookList(ListView):
     model = Book
+    allow_empty = True
     context_object_name = 'books'
     template_name = 'books/book_list.html'
-    paginate_by = 10
-    allow_empty = True
 
     def get_context_data(self, **kwargs):
         context = super(BookList, self).get_context_data(**kwargs)

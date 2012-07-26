@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load thumbnail %}
+{% load pagination_tags %}
 
 {% block title %}Книги{% endblock %}
 
@@ -28,37 +29,11 @@
 
 {% block content %}
 	<div class="row">
-		<div class="filter span3" style="margin-top: 40px;">
-			{% if last_look_book %}
-				<h3 align="center">Последние просмотры</h3>
-				<ul class="thumbnails">
-					{% for book in last_look_book %}
-						<li class="span2">
-							<div class="thumbnail img">
-								<a href="{% url book_detail book.pk %}">
-									{% include "books/includes/watermark.html" %}
-
-									{% thumbnail item.image "180x80" crop="center 90%" as im %}
-										<img src="{{ im.url }}" alt="Книга {{ book.name }}">
-									{% empty %}
-										<img src="http://placehold.it/220x213" alt="Книга {{ book.name }}">
-									{% endthumbnail %}
-								</a>
-							</div>
-							<a href="{% url book_detail book.pk %}">
-								{{ book.name|truncatechars:"36" }}
-							</a>
-						</li>
-					{% endfor %}
-				</ul>
-			{% else %}
-				&nbsp;
-			{% endif %}
-		</div>
-		<div class="span9">
-			<div class="span9">
+		<div class="span12">
+			<div>
 				{% include "books/includes/alphabet_form.html" %}
 			</div>
+			{% autopaginate books 10 %}
 			{% for book in books %}
 				{% with can_bookmark_add="True" %}
 					{% include "books/includes/book_on_row.html" %}
@@ -67,8 +42,8 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="span8 offset3">
-			{% include "includes/pagination.html" %}
+		<div class="span12">
+			{% paginate %}
 		</div>
 	</div>
 {% endblock %}
