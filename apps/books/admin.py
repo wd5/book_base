@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
+import thread
+import threading
 from django.conf import settings
 from django.contrib import admin
 from .book_parser import parser_json
@@ -30,16 +32,20 @@ class BookAdmin(admin.ModelAdmin):
     get_name.allow_tags = True
     get_name.admin_order_field = 'name'
 
+class FuncThread(threading.Thread):
+    def __init__(self, target, *args):
+        self._target = target
+        self._args = args
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self._target(*self._args)
+
 class BookParserJSONAdmin(admin.ModelAdmin):
     list_display = ('file', 'created', 'book_count', )
     list_filter = ('created', )
 
-    def save_model(self, request, obj, form, change):
-        super(BookParserJSONAdmin, self).save_model(request, obj, form, change)
-
-        file = os.path.join(settings.MEDIA_ROOT, obj.file.file.name)
-        data = open(file, 'r').read()
-
+    def _save_books(self, data):
         i=0
         books = parser_json(data)
         for book in books:
@@ -104,12 +110,24 @@ class BookParserJSONAdmin(admin.ModelAdmin):
 
                 book_obj.save()
             except Exception, e:
-                print i
+                print '%s >>> except' % i
                 continue
             print '%s > end' % i
             i += 1
 
-        obj.book_count = i
+
+
+    def save_model(self, request, obj, form, change):
+        super(BookParserJSONAdmin, self).save_model(request, obj, form, change)
+
+        file = os.path.join(settings.MEDIA_ROOT, obj.file.file.name)
+        data = open(file, 'r').read()
+
+        t1 = FuncThread(self._save_books, data)
+        t1.start()
+        t1.join()
+
+        obj.book_count = 123
         obj.save()
 
 admin.site.register(Author)
