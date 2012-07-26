@@ -1,0 +1,51 @@
+{% if is_paginated %}
+	<div class="pager">
+		<ul>
+			<li class="previous">
+				{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}{{ getvars }}{{ hashtag }}">
+						&larr;
+					</a>
+				{% else %}
+					<a>
+						&larr;
+					</a>
+				{% endif %}
+			</li>
+
+			{% for page in pages %}
+				{% if page %}
+					{% ifequal page page_obj.number %}
+						<li class="active">
+							<a>
+								{{ page }}
+							</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="?page={{ page }}{{ getvars }}{{ hashtag }}">
+								{{ page }}
+							</a>
+						</li>
+					{% endifequal %}
+				{% else %}
+					...
+				{% endif %}
+			{% endfor %}
+
+			<li class="next">
+				{% if page_obj.has_next %}
+					<a href="?page={{ page_obj.next_page_number }}{{ getvars }}{{ hashtag }}">
+						&rarr;
+					</a>
+				{% else %}
+					<a>
+						&rarr;
+					</a>
+				{% endif %}
+			</li>
+		</ul>
+	</div>
+{% endif %}
+
+
