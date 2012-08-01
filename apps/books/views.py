@@ -13,6 +13,7 @@ from django.template.context import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from annoying.functions import get_object_or_None
 from django.contrib.auth.signals import user_logged_in
+from apps.hitcounter.decorators import hit_entity
 
 from .forms import MakeOrderForm
 from .models import Book, Bookmark, Library, OrderBook
@@ -47,6 +48,10 @@ class BookList(ListView):
 class BookDetail(DetailView):
     model = Book
     context_object_name = 'book'
+
+    @hit_entity(model._meta.app_label, model._meta.object_name)
+    def get(self, request, *args, **kwargs):
+        return super(BookDetail, self).get(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         obj=super(BookDetail, self).get_object(queryset=queryset)

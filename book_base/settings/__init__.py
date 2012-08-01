@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'apps.flatpages',
     'apps.simple_page',
     'apps.profiles',
+    'apps.hitcounter',
 )
 
 AUTH_PROFILE_MODULE = 'profiles.Profile'
