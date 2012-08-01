@@ -1,59 +1,57 @@
-<div class="navbar">
-	<div class="navbar-inner nav-main">
-		<div class="container">
-			{% url main_page as main_page_url %}
-			<a class="brand" {% ifequal main_page_url request.path %}style="cursor: default;"{% else %}href="{{ main_page_url }}"{% endifequal %}>
-				Каталог
-			</a>
-			<ul class="nav">
+<div class="navbar navbar-inner navbar-fixed-top">
+	<div class="container">
+		{% url main_page as main_page_url %}
+		<a class="brand" {% ifequal main_page_url request.path %}style="cursor: default;"{% else %}href="{{ main_page_url }}"{% endifequal %}>
+			Каталог
+		</a>
+		<ul class="nav">
+			<li>
+				<a href="{% url book_list %}">
+					<i class="icon-book icon-white"></i>
+					Каталог книг
+				</a>
+			</li>
+			<li>
+				<a href="{% url bookmark_list %}">
+					<i class="icon-star icon-white"></i>
+					Закладки
+				</a>
+			</li>
+			{% ifnotequal main_page_url request.path %}
 				<li>
-					<a href="{% url book_list %}">
-						<i class="icon-book icon-white"></i>
-						Каталог книг
+					<form method="GET" action="{% url book_list %}" class="navbar-search pull-right" class="book-search-form" >
+						<input type="text" name="icontains" value="{{ icontains }}" class="search-query span3" placeholder="Найти книгу">
+					</form>
+				</li>
+			{% endifnotequal %}
+		</ul>
+		<ul class="nav pull-right {% if not request.user.is_authenticated %}auth-buttons{% endif %}">
+			{% if request.user.is_authenticated %}
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						{{ request.user.get_profile.name }} <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{% url profile_signout %}">
+								<i class="icon-off"></i>
+								Выйти
+							</a>
+						</li>
+					</ul>
+				</li>
+			{% else %}
+				<li>
+					<a data-toggle="modal" href="#signInPopup">
+						Войти
 					</a>
 				</li>
 				<li>
-					<a href="{% url bookmark_list %}">
-						<i class="icon-star icon-white"></i>
-						Закладки
+					<a href="{% url profile_signup %}">
+						Регистрация
 					</a>
 				</li>
-				{% ifnotequal main_page_url request.path %}
-					<li>
-						<form method="GET" action="{% url book_list %}" class="navbar-search pull-right" class="book-search-form" >
-							<input type="text" name="icontains" value="{{ icontains }}" class="search-query span3" placeholder="Найти книгу">
-						</form>
-					</li>
-				{% endifnotequal %}
-			</ul>
-			<ul class="nav pull-right {% if not request.user.is_authenticated %}auth-buttons{% endif %}">
-				{% if request.user.is_authenticated %}
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-							{{ request.user.get_profile.name }} <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="{% url profile_signout %}">
-									<i class="icon-off"></i>
-									Выйти
-								</a>
-							</li>
-						</ul>
-					</li>
-				{% else %}
-					<li>
-						<a data-toggle="modal" href="#signInPopup">
-							Войти
-						</a>
-					</li>
-					<li>
-						<a href="{% url profile_signup %}">
-							Регистрация
-						</a>
-					</li>
-				{% endif %}
-			</ul>
-		</div>
+			{% endif %}
+		</ul>
 	</div>
 </div>
