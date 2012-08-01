@@ -194,3 +194,14 @@ label[for=library_id] {
 .breadcrumbs-row {
 	margin-top: 60px;
 }
+
+.pannel-search form {
+	margin-top: 20px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+.pannel-search input[name=icontains] {
+	text-align: center;
+	font-size: 16pt;
+	height: 24px;
+}

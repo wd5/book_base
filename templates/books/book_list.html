@@ -27,11 +27,10 @@
 {% endblock %}
 
 {% block content %}
+	{% include "includes/search_pannel.html" %}
+
 	<div class="row">
 		<div class="span12">
-			<div>
-				{% include "books/includes/alphabet_form.html" %}
-			</div>
 			{% autopaginate books 10 %}
 			{% for book in books %}
 				{% with can_bookmark_add="True" %}
