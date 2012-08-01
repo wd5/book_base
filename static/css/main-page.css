@@ -6,6 +6,8 @@
 /* Небольшой костыль для кнопки поиска на главной */
 
 .main-page-search-pannel form {
+	margin-top: 20px;
+	margin-bottom: 40px;
 	text-align: center;
 }
 .main-page-search-pannel input[name=icontains] {
