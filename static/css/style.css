@@ -190,3 +190,7 @@ label[for=library_id] {
 	background-color: #DDDDDD;
 	cursor: default;
 }
+
+.breadcrumbs-row {
+	margin-top: 60px;
+}
