@@ -2,7 +2,7 @@
 	<div class="container">
 		{% url main_page as main_page_url %}
 		<a class="brand" {% ifequal main_page_url request.path %}style="cursor: default;"{% else %}href="{{ main_page_url }}"{% endifequal %}>
-			Каталог
+			Главная
 		</a>
 		<ul class="nav">
 			<li>
@@ -15,6 +15,12 @@
 				<a href="{% url bookmark_list %}">
 					<i class="icon-star icon-white"></i>
 					Закладки
+				</a>
+			</li>
+			<li>
+				<a href="http://bellib.ru/">
+					<i class="icon-home icon-white"></i>
+					bellib.ru
 				</a>
 			</li>
 			{% ifnotequal main_page_url request.path %}
